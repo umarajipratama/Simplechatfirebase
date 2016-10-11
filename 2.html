@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dom Javascript</title>
+	<script type="text/Javascript">
+
+	function addParagraph(trigger, idElement){
+
+
+		This.trigger = trigger;
+		This.idElement = idElement;
+		//create element
+
+		this.createElement();
+
+		//apply event 
+		this.apply();	
+
+
+	/*	var parent = document.body;
+		var pr = document.getElementById("par");
+		var newPar = document.createElement('p');
+		var txt = document.createTextNode('New Paragraph');
+
+		newPar.appendChild(txt); // memasukan text ke element p
+		parent.insertBefore(newPar,pr);
+*/
+	};
+
+	addParagraph.prototype.createElement = function(paragraph){
+		 
+		 this.pr = document.getElementById(this.trigger);
+		 this.newPar = document.createElement('p');
+		 this.newPar.appendChild(document.createTextNode(paragraph));
+	};
+
+	addParagraph.prototype.apply(){
+
+		document.getElementById(this.idElemenet).onclick = this.insert;
+
+	}
+
+	addParagraph.prototype.insert(){
+
+		this.pr.insertBefore(this.newPr, document.getElementById(idElement));
+	}
+
+	var adds = new addParagraph('adder','par','Paragraph added');
+
+	</script>
+</head>
+<body>
+<p id="par">This is paragraph</p>
+<button id="adder">Add Paragraph</button>
+</body>
+
+</html>

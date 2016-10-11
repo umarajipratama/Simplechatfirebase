@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dom Javascript</title>
+	<script type="text/Javascript">
+
+	function addParagraph(){
+
+		var parent = document.body;
+		var pr = document.getElementById("par");
+		var newPar = document.createElement('p');
+		var txt = document.createTextNode('New Paragraph');
+
+		newPar.appendChild(txt); // memasukan text ke element p
+		parent.insertBefore(newPar,pr);
+
+	}
+
+	</script>
+</head>
+<body>
+<p id="par">This is paragraph</p>
+<button onclick="addParagraph()">Add Paragraph</button>
+</body>
+
+</html>

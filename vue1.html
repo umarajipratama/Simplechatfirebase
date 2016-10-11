@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<title>test</title>
+		<script type="text/javascript" src="vue.min.js"></script>
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<li v-for="message in messages">
+					{{message.id}}-<strong>{{message.nama}}</strong> : {{message.pesan}} <button v-on:click="removeMessage(message.id)">hapus</button>
+				</li>
+			</ul>
+			<input type="text" v-model="nama">
+			<input type="text" v-model="pesan" v-on:keyup.enter="addMessage()">
+		</div>
+
+		<script>
+			var ref = new Firebase("https://blazing-torch-7978.firebaseio.com/");
+			ref.on('child_added', function(snapshot){
+				app.messages.push({nama: snapshot.val().nama, pesan: snapshot.val().pesan, id: snapshot.key()});
+			});
+			ref.on('child_removed', function(snapshot){
+				var id = snapshot.key();
+				app.messages.some(function(msg){
+					if(msg.id == id) {
+						app.messages.$remove(msg);
+						return true;
+					}
+				});
+			});
+			var app = new Vue({
+				el: '#app',
+				data: {
+					pesan: '',
+					nama: '',
+					messages: []
+				},
+				methods: {
+					addMessage: function(){
+						if(this.nama != ''){
+							ref.push({nama: this.nama, pesan: this.pesan});
+							this.pesan = '';
+						}
+					},
+					removeMessage: function(msg){
+						ref.child(msg).remove();
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
